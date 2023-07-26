@@ -34,12 +34,14 @@ CGI::CGI(request &request, serverConfig &config) : scriptName("./cgi_bin/php-cgi
 	this->env["HTTP_CONNECTION"] = headers["Connection"];
 }
 
-CGI::CGI(CGI const &src){
+CGI::CGI(CGI const &src)
+{
 	if (this != &src)
 		this->env = src.env;
 }
 
 CGI::~CGI(void){
+
 }
 
 CGI &CGI::operator=(CGI const &src){
