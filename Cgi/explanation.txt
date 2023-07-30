@@ -1,0 +1,15 @@
+Extract CGI File Path and Path Info: The file and path variables are used to store the file path and path info, respectively, retrieved from the Respond object. These paths will be used later to execute the CGI script.
+
+Prepare Command to Execute CGI Script: The cmd array is created to store the command to execute the CGI script. It includes the path and file as arguments to be used with the execve function.
+
+Create Temporary File Descriptors: The temp and temp1 file descriptors are created using tmpfile() to capture the CGI script's output. fdtemp and fdtemp1 store the file descriptor integers for later use.
+
+Get Environment Variables: The get_env function is called to retrieve the environment variables required for the CGI script. These variables are stored in the env map.
+
+Prepare Environment Variables as C Strings: The environment variables are prepared as an array of C strings (envp) to be used with the execve function. The environment variable values are concatenated with their names in the form "name=value".
+
+Fork a Child Process: A child process is created using fork() to execute the CGI script. The parent process will handle reading the output and waiting for the child process to complete.
+
+Child Process Execution: The child process handles executing the CGI script. If the request method is POST, the standard input is redirected to read from temp1, and the request body is written to the file descriptor. If the request method is GET, the standard input remains unchanged.
+
+Execute the CGI Script: The CGI script is executed using execve, which replaces the current process with the CGI script. The
